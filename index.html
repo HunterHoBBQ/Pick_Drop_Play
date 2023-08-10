@@ -30,7 +30,7 @@
         background-image: url("apple.png");
         background-repeat: no-repeat;
         background-size: contain;
-        top: -100px;
+        top: calc(80vh - 50px);
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -91,27 +91,6 @@
       .btn {
         margin: 50px 0 10px 10px;
         padding: 20px;
-      }
-
-      #ground {
-        background-color: green;
-        height: 20vh;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-      }
-
-      .apple {
-        position: absolute;
-        background-image: url("apple.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        top: calc(80vh - 50px);
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        animation: fall 9s ease-in-out;
-        z-index: 99;
       }
 
       @media screen and (max-width: 768px) {
@@ -179,19 +158,12 @@
 
         function createApple() {
           const apple = document.createElement("div");
+          apple.addEventListener("click", handleAppleEvent);
+          apple.addEventListener("touchstart", handleAppleEvent);
           apple.classList.add("apple");
           apple.style.left = `${Math.random() * (window.innerWidth - 100)}px`;
 
-          apple.addEventListener("click", function () {
-            currentScore++;
-            score.textContent = currentScore;
-            apple.style.animation = "fade-out 1s forwards";
-            setTimeout(function () {
-              apple.remove();
-            }, 1000);
-          });
-
-          apple.addEventListener("touchstart", function (event) {
+          function handleAppleEvent(event) {
             event.preventDefault();
             currentScore++;
             score.textContent = currentScore;
@@ -199,7 +171,7 @@
             setTimeout(function () {
               apple.remove();
             }, 1000);
-          });
+          }
 
           apple.addEventListener("touchmove", function (event) {
             event.preventDefault();
