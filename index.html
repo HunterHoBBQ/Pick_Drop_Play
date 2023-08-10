@@ -1,0 +1,138 @@
+<!-- Developed by HunterHo -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pick Apple</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      #sky {
+        background-image: url("sky.jpg");
+        background-repeat: no-repeat;
+        background-color: white;
+        height: 100vh;
+      }
+
+      #ground {
+        background-color: green;
+        height: 20vh;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .apple {
+        position: absolute;
+        background-image: url("apple.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        top: -100px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        animation: fall 9s ease-in-out;
+        z-index: 99;
+      }
+
+      @keyframes fall {
+        0% {
+          top: -50px;
+        }
+
+        50% {
+          top: 75vh;
+        }
+
+        80% {
+          top: 70vh;
+        }
+        100% {
+          transform: rotate(360deg);
+          top: 75vh;
+        }
+      }
+
+      .score {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        z-index: 9;
+      }
+      .credits {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        z-index: 9;
+      }
+      .btn {
+        margin: 50px 0 10px 10px;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sky">
+      <center>
+        <h1>Pick The Apple</h1>
+      </center>
+    </div>
+
+    <div id="ground">
+      <div class="score">Score: <span id="score">0</span></div>
+      <button class="btn" id="reset">Reset</button>
+      <p class="credits">For More Development and please contact Hunter-Ho</p>
+    </div>
+
+    <script>
+      const reset = document.getElementById("reset");
+
+      document.addEventListener("DOMContentLoaded", function (event) {
+        const sky = document.getElementById("sky");
+        const score = document.getElementById("score");
+        let currentScore = 0;
+
+        function createApple() {
+          const apple = document.createElement("div");
+          apple.classList.add("apple");
+          apple.style.left = `${Math.random() * (window.innerWidth - 100)}px`;
+
+          apple.addEventListener("click", function () {
+            currentScore++;
+            score.textContent = currentScore;
+            apple.style.animation = "fade-out 1s forwards";
+            setTimeout(function () {
+              apple.remove();
+            }, 1000);
+          });
+
+          sky.appendChild(apple);
+        }
+
+        reset.addEventListener("click", function () {
+          currentScore = 0;
+          score.textContent = currentScore;
+        });
+
+        function gameLoop() {
+          setTimeout(function () {
+            createApple();
+            gameLoop();
+          }, Math.random() * 2000 + 1000);
+        }
+
+        gameLoop();
+      });
+    </script>
+  </body>
+</html>
