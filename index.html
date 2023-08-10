@@ -45,14 +45,27 @@
 
         50% {
           top: 75vh;
+          top: 75dvh;
+        }
+
+        60% {
+          top: 70vh;
+          top: 70dvh;
         }
 
         80% {
-          top: 70vh;
+          top: 76vh;
+          top: 76dvh;
+        }
+        90% {
+          transform: rotate(360deg);
+          top: 72vh;
+          top: 72dvh;
         }
         100% {
           transform: rotate(360deg);
           top: 75vh;
+          top: 75dvh;
         }
       }
 
@@ -78,6 +91,68 @@
       .btn {
         margin: 50px 0 10px 10px;
         padding: 20px;
+      }
+
+      #ground {
+        background-color: green;
+        height: 20vh;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .apple {
+        position: absolute;
+        background-image: url("apple.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        top: calc(80vh - 50px);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        animation: fall 9s ease-in-out;
+        z-index: 99;
+      }
+
+      @media screen and (max-width: 768px) {
+        .apple {
+          width: 30px;
+          height: 30px;
+        }
+
+        .score {
+          font-size: 16px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .apple {
+          width: 20px;
+          height: 20px;
+        }
+
+        .score {
+          font-size: 12px;
+        }
+      }
+
+      @media screen and (max-width: 320px) {
+        .apple {
+          width: 15px;
+          height: 15px;
+        }
+
+        .score {
+          font-size: 10px;
+        }
+      }
+
+      .apple:active {
+        transform: scale(0.9);
+      }
+
+      .apple:hover {
+        cursor: pointer;
       }
     </style>
   </head>
@@ -114,6 +189,24 @@
             setTimeout(function () {
               apple.remove();
             }, 1000);
+          });
+
+          apple.addEventListener("touchstart", function (event) {
+            event.preventDefault();
+            currentScore++;
+            score.textContent = currentScore;
+            apple.style.animation = "fade-out 1s forwards";
+            setTimeout(function () {
+              apple.remove();
+            }, 1000);
+          });
+
+          apple.addEventListener("touchmove", function (event) {
+            event.preventDefault();
+          });
+
+          apple.addEventListener("touchend", function (event) {
+            event.preventDefault();
           });
 
           sky.appendChild(apple);
