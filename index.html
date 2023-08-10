@@ -58,7 +58,6 @@
           top: 76dvh;
         }
         90% {
-          transform: rotate(360deg);
           top: 72vh;
           top: 72dvh;
         }
@@ -168,9 +167,7 @@
             currentScore++;
             score.textContent = currentScore;
             apple.style.animation = "fade-out 1s forwards";
-            setTimeout(function () {
-              apple.remove();
-            }, 1000);
+            apple.remove();
           }
 
           apple.addEventListener("touchmove", function (event) {
